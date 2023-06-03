@@ -55,7 +55,8 @@ class CollectionViewController: UICollectionViewController {
         cell.delegate = self
         cell.displayName.text = homeViewModel.productList.result?.productList![indexPath.row].displayName ?? ""
         if let url = URL(string: (homeViewModel.productList.result?.productList![indexPath.row].imageURL)!) {
-            cell.imageView.sd_setImage(with: url, placeholderImage: UIImage(systemName: "clock"))
+            cell.imageView.sd_imageIndicator = SDWebImageActivityIndicator.gray
+            cell.imageView.sd_setImage(with: url)
             checkIsFavorite()
         }
 
