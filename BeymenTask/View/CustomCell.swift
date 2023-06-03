@@ -18,6 +18,11 @@ class CustomCell: UICollectionViewCell {
         delegate?.favoriteButtonAction(cell: self)
     }
 
+    override func prepareForReuse() {
+        imageView.image = nil
+        favoriteButton.setImage(UIImage(systemName: "star"), for: .normal)
+    }
+
     lazy var displayName: UILabel = {
         var displayName = UILabel()
         displayName.textColor = .black
@@ -28,7 +33,7 @@ class CustomCell: UICollectionViewCell {
     lazy var imageView: UIImageView = {
         var image = UIImage(systemName: "clock")
         var imageView = UIImageView(image: image)
-        imageView.contentMode = .center
+        imageView.contentMode = .scaleToFill
         return imageView
     }()
 

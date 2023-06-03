@@ -10,6 +10,7 @@ import UIKit
 class ProductDetailViewController: UIViewController {
     var productModel: ProductList
     var imageData: Data?
+    var index: Int
 
     var productDetailViewModel = ProductDetailViewModel()
 
@@ -17,10 +18,11 @@ class ProductDetailViewController: UIViewController {
 
     var activityIndicator = CustomActivityIndicator()
 
-    init(productModel: ProductList, data: Data?, homeViewModel: HomeViewModel) {
+    init(productModel: ProductList, data: Data?, homeViewModel: HomeViewModel, index: Int) {
         self.productModel = productModel
         self.imageData = data
         self.homeViewModel = homeViewModel
+        self.index = index
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -35,6 +37,7 @@ class ProductDetailViewController: UIViewController {
         activityIndicator.startAnimating(in: self)
         productDetailViewModel.delegate = self
         layout()
+        checkIfFavorited()
         setupNavBar()
     }
 
@@ -92,11 +95,26 @@ class ProductDetailViewController: UIViewController {
     }()
 
     @objc func favButtonAction() {
-        homeViewModel.isFavorited = !homeViewModel.isFavorited
         if homeViewModel.isFavorited {
+            homeViewModel.isFavorited = !homeViewModel.isFavorited
+            homeViewModel.updateRealmObject(index: index, isFavorite: true)
             favoriteButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
+        } else {
+            homeViewModel.isFavorited = !homeViewModel.isFavorited
+            homeViewModel.updateRealmObject(index: index, isFavorite: false)
+            favoriteButton.setImage(UIImage(systemName: "star"), for: .normal)
         }
-        else {
+    }
+
+    func checkIfFavorited() {
+        let favoriteProducts = homeViewModel.filteredFavorites()
+
+        let x = favoriteProducts?.contains(where: { model in
+            String(productModel.productID!) == model.productId
+        })
+        if x! {
+            favoriteButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
+        } else {
             favoriteButton.setImage(UIImage(systemName: "star"), for: .normal)
         }
     }

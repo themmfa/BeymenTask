@@ -1,3 +1,4 @@
+import SDWebImage
 import UIKit
 
 private let reuseIdentifier = "Cell"
@@ -19,7 +20,6 @@ class CollectionViewController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        homeViewModel.collectionViewDelegate = self
         collectionView!.register(CustomCell.self, forCellWithReuseIdentifier: reuseIdentifier)
     }
 
@@ -53,15 +53,19 @@ class CollectionViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! CustomCell
         cell.delegate = self
-        homeViewModel.getImageData(url: (homeViewModel.productList.result?.productList![indexPath.row].imageURL)!, cell, for: indexPath)
-        checkIsFavorite()
+        cell.displayName.text = homeViewModel.productList.result?.productList![indexPath.row].displayName ?? ""
+        if let url = URL(string: (homeViewModel.productList.result?.productList![indexPath.row].imageURL)!) {
+            cell.imageView.sd_setImage(with: url, placeholderImage: UIImage(systemName: "clock"))
+            checkIsFavorite()
+        }
+
         return cell
     }
 
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! CustomCell
         let data = cell.imageView.image?.pngData()
-        navController.pushViewController(ProductDetailViewController(productModel: (homeViewModel.productList.result?.productList![indexPath.row])!, data: data, homeViewModel: homeViewModel), animated: true)
+        navController.pushViewController(ProductDetailViewController(productModel: (homeViewModel.productList.result?.productList![indexPath.row])!, data: data, homeViewModel: homeViewModel, index: indexPath.row), animated: true)
     }
 }
 
@@ -76,40 +80,19 @@ extension CollectionViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-extension CollectionViewController: CollectionViewDelegate, CustomCellDelegate {
+extension CollectionViewController: CustomCellDelegate {
     func favoriteButtonAction(cell: CustomCell) {
         let indexPath = collectionView.indexPath(for: cell)
 
-        homeViewModel.isFavorited = !homeViewModel.isFavorited
+        // homeViewModel.isFavorited = !homeViewModel.isFavorited
         if homeViewModel.isFavorited {
-            homeViewModel.updateRealmObject(index: indexPath!.row, isFavorite: true)
-            cell.favoriteButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-        } else {
+            homeViewModel.isFavorited = !homeViewModel.isFavorited
             homeViewModel.updateRealmObject(index: indexPath!.row, isFavorite: false)
             cell.favoriteButton.setImage(UIImage(systemName: "star"), for: .normal)
-        }
-    }
-
-    func getImageData(apiResponse: ApiResponse, data: Data?, _ cell: CustomCell, for indexPath: IndexPath) {
-        let imageCache = NSCache<AnyObject, AnyObject>()
-
-        if apiResponse == .success {
-            DispatchQueue.main.async { [weak self] in
-
-                if let imageFromCache = imageCache.object(forKey: cell) as? UIImage {
-                    cell.imageView.image = imageFromCache
-                    cell.imageView.contentMode = .scaleToFill
-                    return
-                }
-                cell.displayName.text = self?.homeViewModel.productList.result?.productList![indexPath.row].displayName ?? ""
-                let imageToCache = UIImage(data: data!)
-                imageCache.setObject(imageToCache!, forKey: cell)
-                cell.imageView.image = imageToCache
-                cell.imageView.contentMode = .scaleToFill
-            }
-        }
-        if apiResponse == .failed {
-            // Do nothing
+        } else {
+            homeViewModel.isFavorited = !homeViewModel.isFavorited
+            homeViewModel.updateRealmObject(index: indexPath!.row, isFavorite: true)
+            cell.favoriteButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
         }
     }
 }

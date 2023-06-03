@@ -27,6 +27,7 @@
 		85700DDC2A2AFBBE00F2AD3E /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 85700DDB2A2AFBBE00F2AD3E /* Realm */; };
 		85700DDE2A2AFBBE00F2AD3E /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 85700DDD2A2AFBBE00F2AD3E /* RealmSwift */; };
 		85700DE02A2AFCD700F2AD3E /* FavoriteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85700DDF2A2AFCD700F2AD3E /* FavoriteModel.swift */; };
+		85AF11C32A2B6E2C00DF2908 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 85AF11C22A2B6E2C00DF2908 /* SDWebImage */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				85AF11C32A2B6E2C00DF2908 /* SDWebImage in Frameworks */,
 				85700DDE2A2AFBBE00F2AD3E /* RealmSwift in Frameworks */,
 				85700DDC2A2AFBBE00F2AD3E /* Realm in Frameworks */,
 			);
@@ -174,6 +176,7 @@
 			packageProductDependencies = (
 				85700DDB2A2AFBBE00F2AD3E /* Realm */,
 				85700DDD2A2AFBBE00F2AD3E /* RealmSwift */,
+				85AF11C22A2B6E2C00DF2908 /* SDWebImage */,
 			);
 			productName = BeymenTask;
 			productReference = 85700DA52A29FDFA00F2AD3E /* BeymenTask.app */;
@@ -205,6 +208,7 @@
 			mainGroup = 85700D9C2A29FDFA00F2AD3E;
 			packageReferences = (
 				85700DDA2A2AFBBE00F2AD3E /* XCRemoteSwiftPackageReference "realm-swift" */,
+				85AF11C12A2B6E2C00DF2908 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 			);
 			productRefGroup = 85700DA62A29FDFA00F2AD3E /* Products */;
 			projectDirPath = "";
@@ -465,6 +469,14 @@
 				kind = branch;
 			};
 		};
+		85AF11C12A2B6E2C00DF2908 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -477,6 +489,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 85700DDA2A2AFBBE00F2AD3E /* XCRemoteSwiftPackageReference "realm-swift" */;
 			productName = RealmSwift;
+		};
+		85AF11C22A2B6E2C00DF2908 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 85AF11C12A2B6E2C00DF2908 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

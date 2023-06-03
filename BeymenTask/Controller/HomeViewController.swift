@@ -12,7 +12,7 @@ class HomeViewController: UIViewController {
 
     private let activityIndicator = CustomActivityIndicator()
 
-    lazy var homeViewModel = HomeViewModel(delegate: self, collectionViewDelegate: nil)
+    lazy var homeViewModel = HomeViewModel(delegate: self)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +22,10 @@ class HomeViewController: UIViewController {
         collectionViewController = CollectionViewController(collectionViewLayout: UICollectionViewFlowLayout(), homeViewModel: homeViewModel, navController: navigationController!)
         setupNavBar()
         layout()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        collectionViewController?.collectionView.reloadData()
     }
 
     private lazy var changeLayoutButton: UIBarButtonItem = {

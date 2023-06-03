@@ -17,13 +17,8 @@ protocol HomeViewModelDelegate {
     func getAllProducts(apiResponse: ApiResponse)
 }
 
-protocol CollectionViewDelegate {
-    func getImageData(apiResponse: ApiResponse, data: Data?, _ cell: CustomCell, for indexPath: IndexPath)
-}
-
 class HomeViewModel {
     let delegate: HomeViewModelDelegate
-    var collectionViewDelegate: CollectionViewDelegate?
     var isFullWidth: Bool = false
     var isFavorited: Bool = false
 
@@ -31,13 +26,11 @@ class HomeViewModel {
     private var realmService = RealmService()
     var productList: Products = .init(result: nil)
 
-    init(delegate: HomeViewModelDelegate, collectionViewDelegate: CollectionViewDelegate?) {
+    init(delegate: HomeViewModelDelegate) {
         self.delegate = delegate
-        self.collectionViewDelegate = collectionViewDelegate
     }
 
     func getUserDefault() -> Results<FavoriteModel>? {
-        print(Realm.Configuration().fileURL)
         return realmService.getAllFavorites()
     }
 
@@ -61,18 +54,6 @@ class HomeViewModel {
 
             } catch {
                 delegate.getAllProducts(apiResponse: ApiResponse.failed)
-            }
-        }
-    }
-
-    func getImageData(url: String, _ cell: CustomCell, for indexPath: IndexPath) {
-        Task {
-            do {
-                let data = try await apiService.downloadImage(from: url)
-                collectionViewDelegate?.getImageData(apiResponse: ApiResponse.success, data: data, cell, for: indexPath)
-
-            } catch {
-                collectionViewDelegate?.getImageData(apiResponse: ApiResponse.failed, data: nil, cell, for: indexPath)
             }
         }
     }
