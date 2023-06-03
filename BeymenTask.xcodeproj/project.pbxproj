@@ -27,7 +27,6 @@
 		85700DDC2A2AFBBE00F2AD3E /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 85700DDB2A2AFBBE00F2AD3E /* Realm */; };
 		85700DDE2A2AFBBE00F2AD3E /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 85700DDD2A2AFBBE00F2AD3E /* RealmSwift */; };
 		85700DE02A2AFCD700F2AD3E /* FavoriteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85700DDF2A2AFCD700F2AD3E /* FavoriteModel.swift */; };
-		85CE2DA92A2B3F1900DAA790 /* CustomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85CE2DA82A2B3F1900DAA790 /* CustomImageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,7 +50,6 @@
 		85700DD62A2A402500F2AD3E /* ProductDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailModel.swift; sourceTree = "<group>"; };
 		85700DD82A2A765F00F2AD3E /* RealmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmService.swift; sourceTree = "<group>"; };
 		85700DDF2A2AFCD700F2AD3E /* FavoriteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteModel.swift; sourceTree = "<group>"; };
-		85CE2DA82A2B3F1900DAA790 /* CustomImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,7 +116,6 @@
 				85700DC72A2A04F500F2AD3E /* CollectionView.swift */,
 				85700DC92A2A051D00F2AD3E /* CustomCell.swift */,
 				85700DD02A2A0A3600F2AD3E /* CustomActivityIndicator.swift */,
-				85CE2DA82A2B3F1900DAA790 /* CustomImageView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -250,7 +247,6 @@
 				85700DD92A2A765F00F2AD3E /* RealmService.swift in Sources */,
 				85700DCA2A2A051D00F2AD3E /* CustomCell.swift in Sources */,
 				85700DAB2A29FDFA00F2AD3E /* SceneDelegate.swift in Sources */,
-				85CE2DA92A2B3F1900DAA790 /* CustomImageView.swift in Sources */,
 				85700DE02A2AFCD700F2AD3E /* FavoriteModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
